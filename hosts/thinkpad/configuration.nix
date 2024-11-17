@@ -75,6 +75,7 @@
     firefox
     vscode
     nixpkgs-fmt
+    nixd
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
