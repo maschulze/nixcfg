@@ -4,7 +4,7 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = { self, nixpkgs, disko, ... }:
+  outputs = { self, nixpkgs, disko, lib, ... }:
     let
       # TODO: Adjust these values to your needs
       system = "x86_64-linux";
