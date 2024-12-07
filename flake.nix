@@ -37,7 +37,7 @@
                 initialPassword = "start123";
               };
               nix.settings.trusted-users = ["worker"];
-            }
+            
             system.stateVersion = "24.11";
           })
         ];
