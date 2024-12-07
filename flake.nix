@@ -29,6 +29,8 @@
               neovim
             ];
 
+	networking.networkmanager.enable = true;
+	networking.useDHCP = true;
             
               users.extraUsers.worker = {
                 isNormalUser = true;
