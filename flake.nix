@@ -4,7 +4,7 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = { self, nixpkgs, disko, lib, ... }:
+  outputs = { self, nixpkgs, disko, ... }:
     let
       # TODO: Adjust these values to your needs
       system = "x86_64-linux";
@@ -16,7 +16,7 @@
         modules = [
           ./disk-config.nix
           disko.nixosModules.disko
-          ({ pkgs, ... }: {
+          ({ pkgs, lib, ... }: {
             boot.loader = {
               systemd-boot.enable = true;
               efi.canTouchEfiVariables = true;
