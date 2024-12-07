@@ -30,7 +30,7 @@
             ];
 
 	networking.networkmanager.enable = true;
-	networking.useDHCP = true;
+	networking.useDHCP = lib.mkDefault true;
             
               users.extraUsers.worker = {
                 isNormalUser = true;
