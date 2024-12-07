@@ -29,7 +29,7 @@
               neovim
             ];
 
-            {
+            
               users.extraUsers.worker = {
                 isNormalUser = true;
                 uid = 1000;
