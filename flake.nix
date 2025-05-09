@@ -11,45 +11,34 @@
   '';
 
   inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    dotfiles = {
-      url = "git+https://code.worker.com/worker/dotfiles-flake-demo.git";
-      flake = false;
     };
   };
 
   outputs = {
     self,
     disko,
-    dotfiles,
     home-manager,
     nixpkgs,
     ...
   } @ inputs: let
     inherit (self) outputs;
     systems = [
-      "aarch64-linux"
-      "i686-linux"
       "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
     ];
     forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
-    packages =
-      forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
-    overlays = import ./overlays {inherit inputs;};
+    packages = forAllSystems (system: nixpkgs.legacyPackages.${system});
     nixosConfigurations = {
       thinkpad = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
