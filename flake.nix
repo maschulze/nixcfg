@@ -1,59 +1,43 @@
 {
-  description = ''
-    For questions just DM me on X: https://twitter.com/@worker
-    There is also some NIXOS content on my YT channel: https://www.youtube.com/@worker
+  description = "A template that shows all standard flake outputs";
 
-    One of the best ways to learn NIXOS is to read other peoples configurations. I have personally learned a lot from Gabriel Fontes configs:
-    https://github.com/Misterio77/nix-starter-configs
-    https://github.com/Misterio77/nix-config
-
-    Please also check out the starter configs mentioned above.
-  '';
-
+  # Inputs to the flake
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    disko = {
-      url = "github:nix-community/disko";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
+  # Outputs this flake produces
   outputs = {
     self,
-    disko,
-    home-manager,
     nixpkgs,
     ...
   } @ inputs: let
+    supportedSystems = ["x86_64-linux"];
+    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+    nixpkgsFor = forAllSystems (system: import nixpkgs {inherit system;});
+    username = "worker";
     inherit (self) outputs;
-    systems = [
-      "x86_64-linux"
-    ];
-    forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
-    packages = forAllSystems (system: nixpkgs.legacyPackages.${system});
     nixosConfigurations = {
-      thinkpad = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./hosts/thinkpad
-          inputs.disko.nixosModules.disko
-        ];
-      };
+      thinkpad = let
+        system = "x86_64-linux";
+        hostname = "thinkpad";
+      in
+        nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit system hostname username inputs;} // inputs;
+          modules = [
+            ./.
+          ];
+        };
     };
-    homeConfigurations = {
-      "worker@thinkpad" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages."x86_64-linux";
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [./home/worker/thinkpad.nix];
-      };
-    };
+
+    # formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+    # formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
   };
 }
