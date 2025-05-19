@@ -1,5 +1,6 @@
 {
   home-manager,
+  disko,
   inputs,
   ...
 }: {
