@@ -1,6 +1,7 @@
 # Common configuration for all hosts
 {
   pkgs,
+  home-manager,
   lib,
   inputs,
   outputs,
@@ -8,7 +9,7 @@
 }: {
   imports = [
     ./users
-    inputs.home-manager.nixosModules.home-manager
+    home-manager.nixosModules.home-manager
   ];
   home-manager = {
     useUserPackages = true;

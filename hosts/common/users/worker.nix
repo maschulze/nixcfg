@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  home-manager,
   inputs,
   ...
 }: {
@@ -20,7 +21,7 @@
       "kvm"
       "qemu-libvirtd"
     ];
-    packages = [inputs.home-manager.packages.${pkgs.system}.default];
+    packages = [home-manager.packages.${pkgs.system}.default];
   };
   home-manager.users.worker =
     import ../../../home/worker/${config.networking.hostName}.nix;
