@@ -40,11 +40,11 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
-# Configure keymap in Console
+  # Configure keymap in Console
   console = {
-  #   font = "Lat2-Terminus16";
+    #   font = "Lat2-Terminus16";
     keyMap = "de-latin1-nodeadkeys";
-  #   useXkbConfig = true; # use xkb.options in tty.
+    #   useXkbConfig = true; # use xkb.options in tty.
   };
 
   # Configure keymap in X11
