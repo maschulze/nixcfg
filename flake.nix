@@ -5,6 +5,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
 
+    # NixOS modules for specific hardware
+    nixos-hardware.url = "github:nixos/nixos-hardware/master";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -37,6 +40,7 @@
           specialArgs = {inherit system hostname username inputs;} // inputs;
           modules = [
             ./.
+            inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t460p
           ];
         };
     };
