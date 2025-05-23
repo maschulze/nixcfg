@@ -5,4 +5,8 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 
 sudo nixos-install --root /mnt --flake .#thinkpad
 
+nix flake update
+
+nix fmt
+
 sudo reboot
