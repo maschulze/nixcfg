@@ -4,21 +4,37 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./disko-config.nix
+
+    inputs.disko.nixosModules.default
   ];
 
-  my = {
-    htop = {
-      enable = true;
+  myNixOS = {
+    # bundles.general-desktop.enable = true;
+    # hyprland.enable = true;
+    # power-management.enable = true;
+
+    # virtualisation.enable = lib.mkDefaut true;
+
+    # bundles.users.enable = true;
+    home-users = {
+      "worker" = {
+        userConfig = ./home.nix;
+        userSettings = {
+          extraGroups = ["networkmanager" "wheel"];
+          hashedPasswordFile = "/persist/passwd";
+        };
+      };
     };
-    hyprland = {
-      enable = true;
-    };
+
+    # impermanence.enable = true;
+    # impermanence.nukeRoot.enable = true;
   };
 
   # Bootloader.
@@ -61,8 +77,8 @@
   hardware.nvidia.open = false;
 
   # Enable the KDE Plasma Desktop Environment.
-  # services.displayManager.sddm.enable = true;
-  # services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -128,4 +144,6 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  system.stateVersion = "25.05";
 }

@@ -19,36 +19,26 @@
     };
   };
 
-  # Outputs this flake produces
-  outputs = {
-    self,
-    nixpkgs,
-    ...
-  } @ inputs: let
-    supportedSystems = ["x86_64-linux"];
-    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-    nixpkgsFor = forAllSystems (system: import nixpkgs {inherit system;});
-    username = "worker";
-    inherit (self) outputs;
-  in {
-    nixosConfigurations = {
-      thinkpad = let
-        system = "x86_64-linux";
-        hostname = "thinkpad";
-      in
-        nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit system hostname username inputs;} // inputs;
-          modules = [
-            ./.
-            inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t460p
-            ./modules/desktop
-          ];
-        };
-    };
+  outputs = inputs:
+    with (import ./myLib inputs); {
+      nixosConfigurations = {
+        # ===================== NixOS Configurations ===================== #
 
-    # formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
-    # formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-classic;
-    # formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-  };
+        thinkpad = mkSystem ./hosts/thinkpad/configuration.nix;
+      };
+
+      homeConfigurations = {
+        # ================ Home configurations ================ #
+
+        "worker@thinkpad" = mkHome "x86_64-linux" ./hosts/thinkpad/home.nix;
+      };
+
+      homeManagerModules.default = ./homeManagerModules;
+      nixosModules.default = ./nixosModules;
+
+      # formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+      # formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixfmt-classic;
+      # formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+      formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.alejandra;
+    };
 }
