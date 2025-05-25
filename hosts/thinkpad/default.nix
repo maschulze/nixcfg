@@ -12,8 +12,13 @@
     ./disko-config.nix
   ];
 
-  my.htop = {
-    enable = true;
+  my = {
+    htop = {
+      enable = true;
+    };
+    hyprland = {
+      enable = true;
+    };
   };
 
   # Bootloader.
@@ -52,7 +57,7 @@
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia.open = false;
 
   # Enable the KDE Plasma Desktop Environment.
@@ -102,6 +107,7 @@
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
     vscode
+    kitty
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

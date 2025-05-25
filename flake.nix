@@ -41,7 +41,7 @@
           modules = [
             ./.
             inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t460p
-            ./modules/desktop/kde
+            ./modules/desktop
           ];
         };
     };
