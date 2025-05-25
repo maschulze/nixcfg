@@ -28,7 +28,7 @@
         userConfig = ./home.nix;
         userSettings = {
           extraGroups = ["networkmanager" "wheel"];
-          hashedPasswordFile = "/persist/passwd";
+          # hashedPasswordFile = "/persist/passwd";
         };
       };
     };
