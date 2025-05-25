@@ -64,7 +64,7 @@ in {
           isNormalUser = true;
           initialPassword = "12345";
           description = "";
-          shell = pkgs.fish;
+          # shell = pkgs.fish;
           extraGroups = ["libvirtd" "networkmanager" "wheel"];
         }
         // user.userSettings

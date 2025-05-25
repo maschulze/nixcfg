@@ -22,7 +22,7 @@
 
     # virtualisation.enable = lib.mkDefaut true;
 
-    # bundles.users.enable = true;
+    bundles.users.enable = true;
     home-users = {
       "worker" = {
         userConfig = ./home.nix;
