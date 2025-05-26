@@ -30,8 +30,9 @@
   # ===================== Flake Outputs ===================== #
   # The outputs function receives all resolved inputs and returns
   # an attribute set describing what this flake provides.
-  outputs = inputs:
-  # Import custom library functions from ./myLib, passing all inputs
+  outputs =
+    inputs:
+    # Import custom library functions from ./myLib, passing all inputs
     with (import ./myLib inputs); {
       # ----------- NixOS system configurations -----------
       nixosConfigurations = {
@@ -58,7 +59,8 @@
       # formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
       # formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixfmt-classic;
       # formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
-      # Use alejandra as the default formatter for x86_64-linux
-      formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.alejandra;
+      # formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.alejandra;
+      # Use nixfmt-tree as the default formatter for x86_64-linux
+      formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
     };
 }
