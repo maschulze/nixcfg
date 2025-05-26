@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   # boot.kernelParams = ["amd_pstate=guided"];
 
   # powerManagement = {

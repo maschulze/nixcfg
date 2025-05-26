@@ -4,7 +4,8 @@
   lib,
   inputs,
   ...
-}: {
+}:
+{
   nixpkgs = {
     config = {
       experimental-features = "nix-command flakes";

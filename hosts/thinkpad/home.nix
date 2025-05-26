@@ -5,8 +5,9 @@
   lib,
   config,
   ...
-}: {
-  imports = [outputs.homeManagerModules.default];
+}:
+{
+  imports = [ outputs.homeManagerModules.default ];
 
   #   myHomeManager.impermanence.data.directories = [
   #     "nixconf"

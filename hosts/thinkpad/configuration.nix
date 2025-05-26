@@ -6,7 +6,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -27,7 +28,10 @@
       "worker" = {
         userConfig = ./home.nix;
         userSettings = {
-          extraGroups = ["networkmanager" "wheel"];
+          extraGroups = [
+            "networkmanager"
+            "wheel"
+          ];
           # hashedPasswordFile = "/persist/passwd";
         };
       };
@@ -73,7 +77,7 @@
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = false;
 
   # Enable the KDE Plasma Desktop Environment.

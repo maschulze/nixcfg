@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   # Configure storage devices using disko
   disko.devices = {
     disk = {
