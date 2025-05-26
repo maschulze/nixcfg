@@ -35,6 +35,8 @@
 
     #     bundles.gaming.enable = true;
 
+    git.enable = true;
+
     #     pipewire.enable = true;
     #     tenacity.enable = true;
 
