@@ -7,6 +7,6 @@ sudo nixos-install --root /mnt --flake .#thinkpad
 
 nix flake update
 
-nix fmt
+nix fmt -- .
 
 sudo reboot
