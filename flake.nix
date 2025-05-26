@@ -31,7 +31,7 @@
   # The outputs function receives all resolved inputs and returns
   # an attribute set describing what this flake provides.
   outputs = inputs:
-    # Import custom library functions from ./myLib, passing all inputs
+  # Import custom library functions from ./myLib, passing all inputs
     with (import ./myLib inputs); {
       # ----------- NixOS system configurations -----------
       nixosConfigurations = {

@@ -8,7 +8,6 @@ inputs: let
   # Shortcut for the main nixpkgs input
   nixpkgs = inputs.nixpkgs;
 in rec {
-
   # =========================== Helpers ============================ #
 
   # Import overlays from the overlays directory, passing inputs and outputs
@@ -35,9 +34,9 @@ in rec {
         inherit inputs outputs myLib;
       };
       modules = [
-        config                           # User/system config file
-        outputs.nixosModules.default     # Default NixOS modules from flake
-        overlayModule                    # Inject overlays
+        config # User/system config file
+        outputs.nixosModules.default # Default NixOS modules from flake
+        overlayModule # Inject overlays
 
         # Example: set nix.package to pkgs.lix (could be customized)
         ({pkgs, ...}: {nix.package = pkgs.lix;})
@@ -47,7 +46,7 @@ in rec {
   # Helper to create a Home Manager configuration for a user
   mkHome = sys: config:
     inputs.home-manager.lib.homeManagerConfiguration {
-      pkgs = pkgsFor sys;                # Use overlays for this system
+      pkgs = pkgsFor sys; # Use overlays for this system
       extraSpecialArgs = {
         inherit inputs myLib outputs;
       };
@@ -58,7 +57,7 @@ in rec {
           stylix.image = ./../nixosModules/features/stylix/gruvbox-mountain-village.png;
           nixpkgs.config.allowUnfree = true;
         }
-        config                           # User's home.nix config
+        config # User's home.nix config
         outputs.homeManagerModules.default # Default Home Manager modules from flake
       ];
     };
