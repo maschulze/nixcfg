@@ -8,9 +8,6 @@
 }: {
   imports = [outputs.homeManagerModules.default];
 
-  #   programs.git.userName = "yurii";
-  #   programs.git.userEmail = "yurii@goxore.com";
-
   #   myHomeManager.impermanence.data.directories = [
   #     "nixconf"
 
