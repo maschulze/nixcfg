@@ -38,6 +38,8 @@
 
     git.enable = true;
 
+    hyprland.enable = true;
+
     #     pipewire.enable = true;
     #     tenacity.enable = true;
 

@@ -8,60 +8,44 @@
   ...
 }:
 let
-  # Shortcut to access the `myNixOS` configuration section
+  # Shortcut for accessing options under the myNixOS namespace
   cfg = config.myNixOS;
 
-  # Define `features` as a list of modules from ./features.
-  # Each feature module is extended to have an `enable` option and only applies its config if enabled.
-  features =
-    myLib.extendModules
-      (name: {
-        # Add an enable option for each feature under myNixOS.<feature>.enable
-        extraOptions = {
-          myNixOS.${name}.enable = lib.mkEnableOption "enable my ${name} configuration";
-        };
+  # Collect all feature modules from ./features
+  # Each feature gets an enable option and is only imported if enabled
+  features = myLib.extendModules (name: {
+    # Add an enable option for each feature (myNixOS.<feature>.enable)
+    extraOptions = {
+      myNixOS.${name}.enable = lib.mkEnableOption "enable my ${name} configuration";
+    };
+    # Only apply the module's config if the feature is enabled
+    configExtension = config: (lib.mkIf cfg.${name}.enable config);
+  }) (myLib.filesIn ./features);
 
-        # Only include the feature's configuration if it is enabled
-        configExtension = config: (lib.mkIf cfg.${name}.enable config);
-      })
-      # Collect all modules (files) from the ./features directory
-      (myLib.filesIn ./features);
+  # Collect all bundle modules from ./bundles
+  # Each bundle is a group of features with its own enable switch
+  bundles = myLib.extendModules (name: {
+    # Add an enable option for each bundle (myNixOS.bundles.<bundle>.enable)
+    extraOptions = {
+      myNixOS.bundles.${name}.enable = lib.mkEnableOption "enable ${name} module bundle";
+    };
+    # Only apply the bundle's config if enabled
+    configExtension = config: (lib.mkIf cfg.bundles.${name}.enable config);
+  }) (myLib.filesIn ./bundles);
 
-  # Define `bundles` as a list of module bundles from ./bundles.
-  # Each bundle is extended to have an `enable` option and only applies its config if enabled.
-  bundles =
-    myLib.extendModules
-      (name: {
-        # Add an enable option for each bundle under myNixOS.bundles.<bundle>.enable
-        extraOptions = {
-          myNixOS.bundles.${name}.enable = lib.mkEnableOption "enable ${name} module bundle";
-        };
-
-        # Only include the bundle's configuration if it is enabled
-        configExtension = config: (lib.mkIf cfg.bundles.${name}.enable config);
-      })
-      # Collect all modules (files) from the ./bundles directory
-      (myLib.filesIn ./bundles);
-
-  # Define `services` as a list of service modules from ./services.
-  # Each service is extended to have an `enable` option and only applies its config if enabled.
-  services =
-    myLib.extendModules
-      (name: {
-        # Add an enable option for each service under myNixOS.services.<service>.enable
-        extraOptions = {
-          myNixOS.services.${name}.enable = lib.mkEnableOption "enable ${name} service";
-        };
-
-        # Only include the service's configuration if it is enabled
-        configExtension = config: (lib.mkIf cfg.services.${name}.enable config);
-      })
-      # Collect all modules (files) from the ./services directory
-      (myLib.filesIn ./services);
+  # Collect all service modules from ./services
+  # Each service can be toggled individually
+  services = myLib.extendModules (name: {
+    # Add an enable option for each service (myNixOS.services.<service>.enable)
+    extraOptions = {
+      myNixOS.services.${name}.enable = lib.mkEnableOption "enable ${name} service";
+    };
+    # Only apply the service's config if enabled
+    configExtension = config: (lib.mkIf cfg.services.${name}.enable config);
+  }) (myLib.filesIn ./services);
 in
 {
-  # Combine all enabled modules into the imports list.
-  # This includes the home-manager module, all enabled features, bundles, and services.
+  # Compose the imports list from home-manager, features, bundles, and services
   imports =
     [
       # Import the home-manager NixOS module from flake inputs
@@ -71,21 +55,22 @@ in
     ++ bundles
     ++ services;
 
-  # Example of an option definition (commented out for now)
-  # options.myNixOS = {
-  #   hyprland.enable = lib.mkEnableOption "enable hyprland";
-  # };
+  # Define options for the custom myNixOS namespace
+  options.myNixOS = {
+    # Example: add an enable option for Hyprland
+    hyprland.enable = lib.mkEnableOption "enable hyprland";
+  };
 
-  # Set some default Nix/Nixpkgs configuration
+  # Set global Nix/Nixpkgs configuration defaults
   config = {
-    # Enable experimental Nix features: nix-command and flakes
+    # Enable Nix flakes and the new nix-command interface
     nix.settings.experimental-features = [
       "nix-command"
       "flakes"
     ];
-    # Enable nix-ld (commented out, uncomment to use)
+    # Optionally enable nix-ld for running binaries with missing libraries
     # programs.nix-ld.enable = true;
-    # Allow unfree packages in nixpkgs
+    # Allow unfree packages in nixpkgs (e.g., proprietary software)
     nixpkgs.config.allowUnfree = true;
   };
 }

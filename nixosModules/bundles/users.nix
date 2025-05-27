@@ -33,7 +33,7 @@ in
     # programs.zsh.enable = true;
     # programs.fish.enable = true;
 
-    # programs.hyprland.enable = cfg.hyprland.enable;
+    programs.hyprland.enable = cfg.hyprland.enable;
 
     # services.xserver = lib.mkIf cfg.hyprland.enable {
     #   displayManager = {
