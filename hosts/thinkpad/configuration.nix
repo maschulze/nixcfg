@@ -18,7 +18,7 @@
 
   myNixOS = {
     # bundles.general-desktop.enable = true;
-    # hyprland.enable = true;
+    hyprland.enable = true;
     power-management.enable = true;
 
     # virtualisation.enable = lib.mkDefaut true;
