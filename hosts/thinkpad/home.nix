@@ -43,7 +43,7 @@
     #     pipewire.enable = true;
     #     tenacity.enable = true;
 
-    #    hyprland.split-workspaces.enable = false;
+        hyprland.split-workspaces.enable = false;
 
     #     monitors = let
     #       # edp = {

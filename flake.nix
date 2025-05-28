@@ -15,14 +15,34 @@
     # Home Manager for user-level configuration management
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
-      # Ensure home-manager uses the same nixpkgs as the rest of the flake
+      # Ensure that home-manager uses the same nixpkgs as the rest of the flake,
+      # which helps maintain consistency and avoids dependency issues.
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Disko for declarative disk partitioning and formatting
     disko = {
       url = "github:nix-community/disko";
-      # Use the same nixpkgs for consistency
+      # Ensure that disko uses the same nixpkgs as the rest of the flake,
+      # which helps maintain consistency and avoids dependency issues.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Define the Hyprland input, fetching it from the official GitHub repository
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      # Ensure that Hyprland uses the same nixpkgs as the rest of the flake,
+      # which helps maintain consistency and avoids dependency issues.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Define the split-monitor-workspaces plugin input
+    split-monitor-workspaces = {
+      url = "github:Duckonaut/split-monitor-workspaces";
+      # Make sure this plugin uses the same Hyprland input as defined above.
+      # This is crucial for compatibility between the plugin and Hyprland.
+      inputs.hyprland.follows = "hyprland";
+      # Again, ensure the same nixpkgs is used for consistency across all inputs.
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
