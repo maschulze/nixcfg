@@ -3,32 +3,54 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   wayland.windowManager.hyprland = {
     settings = {
       "$mainMod" = "SUPER";
 
-      bind = let
-        toWSNumber = n: (toString (
-          if n == 0
-          then 10
-          else n
-        ));
+      bind =
+        let
+          toWSNumber = n: (toString (if n == 0 then 10 else n));
 
-        moveworkspace-command =
-          if config.myHomeManager.hyprland.split-workspaces.enable
-          then "split-movetoworkspace"
-          else "movetoworkspace";
-        moveworkspaces = map (n: "$mainMod SHIFT, ${toString n}, ${moveworkspace-command}, ${toWSNumber n}") [1 2 3 4 5 6 7 8 9 0];
+          moveworkspace-command =
+            if config.myHomeManager.hyprland.split-workspaces.enable then
+              "split-movetoworkspace"
+            else
+              "movetoworkspace";
+          moveworkspaces =
+            map (n: "$mainMod SHIFT, ${toString n}, ${moveworkspace-command}, ${toWSNumber n}")
+              [
+                1
+                2
+                3
+                4
+                5
+                6
+                7
+                8
+                9
+                0
+              ];
 
-        workspace-command =
-          if config.myHomeManager.hyprland.split-workspaces.enable
-          then "split-workspace"
-          else "workspace";
-        woworkspaces = map (n: "$mainMod, ${toString n}, ${workspace-command}, ${toWSNumber n}") [1 2 3 4 5 6 7 8 9 0];
-        
-      in
+          workspace-command =
+            if config.myHomeManager.hyprland.split-workspaces.enable then "split-workspace" else "workspace";
+          woworkspaces = map (n: "$mainMod, ${toString n}, ${workspace-command}, ${toWSNumber n}") [
+            1
+            2
+            3
+            4
+            5
+            6
+            7
+            8
+            9
+            0
+          ];
+
+        in
         [
+          "$mainMod, M, exit,"
           "$mainMod, return, exec, kitty"
           "$mainMod, Q, killactive,"
           "$mainMod SHIFT, F, togglefloating,"
@@ -84,44 +106,45 @@
     # =                   ./../keymap.nix to hypr                    = #
     # ================================================================ #
 
-    extraConfig = let
-      wrapWriteApplication = text:
-        lib.getExe (pkgs.writeShellApplication {
-          name = "script";
-          text = text;
-        });
+    # extraConfig =
+    #   let
+    #     wrapWriteApplication =
+    #       text:
+    #       lib.getExe (
+    #         pkgs.writeShellApplication {
+    #           name = "script";
+    #           text = text;
+    #         }
+    #       );
 
-      makeHyprBinds = parentKeyName: keyName: keyOptions: let
-        newKeyName =
-          if builtins.match ".*,.*" keyName != null
-          then keyName
-          else "," + keyName;
-        submapname =
-          parentKeyName
-          + (builtins.replaceStrings [" " "," "$"] ["hypr" "submaps" "suck"] newKeyName); # :)
-      in
-        if builtins.hasAttr "script" keyOptions
-        then ''
-          bind = ${newKeyName}, exec, ${wrapWriteApplication keyOptions.script}
-          bind = ${newKeyName},submap,reset
-        ''
-        else if builtins.hasAttr "package" keyOptions
-        then ''
-          bind = ${newKeyName}, exec, ${lib.getExe keyOptions.package}
-          bind = ${newKeyName},submap,reset
-        ''
-        else ''
-          bind = ${newKeyName}, submap, ${submapname}
+    #     makeHyprBinds =
+    #       parentKeyName: keyName: keyOptions:
+    #       let
+    #         newKeyName = if builtins.match ".*,.*" keyName != null then keyName else "," + keyName;
+    #         submapname =
+    #           parentKeyName + (builtins.replaceStrings [ " " "," "$" ] [ "hypr" "submaps" "suck" ] newKeyName); # :)
+    #       in
+    #       if builtins.hasAttr "script" keyOptions then
+    #         ''
+    #           bind = ${newKeyName}, exec, ${wrapWriteApplication keyOptions.script}
+    #           bind = ${newKeyName},submap,reset
+    #         ''
+    #       else if builtins.hasAttr "package" keyOptions then
+    #         ''
+    #           bind = ${newKeyName}, exec, ${lib.getExe keyOptions.package}
+    #           bind = ${newKeyName},submap,reset
+    #         ''
+    #       else
+    #         ''
+    #           bind = ${newKeyName}, submap, ${submapname}
 
-          submap = ${submapname}
-          ${lib.concatLines (lib.mapAttrsToList (makeHyprBinds submapname) keyOptions)}
-          submap = reset
-        '';
-    in
-      lib.mkAfter
-      (lib.concatLines
-        (lib.mapAttrsToList
-          (makeHyprBinds "root")
-          config.myHomeManager.keybinds));
+    #           submap = ${submapname}
+    #           ${lib.concatLines (lib.mapAttrsToList (makeHyprBinds submapname) keyOptions)}
+    #           submap = reset
+    #         '';
+    #   in
+    #   lib.mkAfter (
+    #     lib.concatLines (lib.mapAttrsToList (makeHyprBinds "root") config.myHomeManager.keybinds)
+    #   );
   };
 }

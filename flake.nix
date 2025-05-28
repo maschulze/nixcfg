@@ -42,8 +42,6 @@
       # Make sure this plugin uses the same Hyprland input as defined above.
       # This is crucial for compatibility between the plugin and Hyprland.
       inputs.hyprland.follows = "hyprland";
-      # Again, ensure the same nixpkgs is used for consistency across all inputs.
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

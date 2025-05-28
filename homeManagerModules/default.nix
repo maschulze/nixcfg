@@ -13,7 +13,9 @@ let
 
   # Collect all feature modules from ./features
   # Each feature gets an enable option and is only imported if enabled
-  features = myLib.extendModules (name: {
+  features =
+    myLib.extendModules
+      (name: {
         # Add an enable option for each feature (myHomeManager.<feature>.enable)
         extraOptions = {
           myHomeManager.${name}.enable = lib.mkEnableOption "enable my ${name} configuration";
@@ -27,8 +29,10 @@ let
 
   # Collect all feature modules from ./bundles
   # Each feature gets an enable option and is only imported if enabled
-  bundles = myLib.extendModules (name: {
-         # Add an enable option for each feature (myHomeManager.bundles.<bundles>.enable)
+  bundles =
+    myLib.extendModules
+      (name: {
+        # Add an enable option for each feature (myHomeManager.bundles.<bundles>.enable)
         extraOptions = {
           myHomeManager.bundles.${name}.enable = lib.mkEnableOption "enable ${name} module bundle";
         };

@@ -3,7 +3,7 @@
   config,
   lib,
   inputs,
-  split-monitor-workspaces,
+  #  split-monitor-workspaces,
   ...
 }:
 {
@@ -21,10 +21,10 @@
 
     wayland.windowManager.hyprland = {
       plugins =
-        []
-        ++ lib.optional
-        config.myHomeManager.hyprland.split-workspaces.enable
-        (split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces);
+        [ ]
+        ++ lib.optional config.myHomeManager.hyprland.split-workspaces.enable (
+          inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
+        );
 
       enable = true;
 

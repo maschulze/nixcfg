@@ -37,13 +37,18 @@
     #     bundles.gaming.enable = true;
 
     git.enable = true;
+    kitty.enable = true;
+    vscode.enable = true;
+    rofi.enable = true;
+
+    firefox.enable = true;
 
     hyprland.enable = true;
 
     #     pipewire.enable = true;
     #     tenacity.enable = true;
 
-        hyprland.split-workspaces.enable = false;
+    hyprland.split-workspaces.enable = false;
 
     #     monitors = let
     #       # edp = {
