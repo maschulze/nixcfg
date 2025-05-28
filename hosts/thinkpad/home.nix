@@ -50,29 +50,13 @@
 
     hyprland.split-workspaces.enable = false;
 
-    #     monitors = let
-    #       # edp = {
-    #       #   width = 1920;
-    #       #   height = 1080;
-    #       #   refreshRate = 144.;
-    #       #   x = 0;
-    #       #   y = 500;
-    #       #   # x = 760;
-    #       #   # y = 1440;
-    #       # };
-    #     in {
-    #       # "eDP-1" = edp;
-    #       # "eDP-2" = edp;
-    #       "HDMI-A-1" = {
-    #         width = 3440;
-    #         height = 1440;
-    #         refreshRate = 100.;
-    #         # x = 1920;
-    #         # y = 0;
-    #         # x = 0;
-    #         # y = 0;
-    #       };
-    #     };
+        monitors = {
+          "eDP-1" = {
+            width = 2560;
+            height = 1440;
+            refreshRate = 60.;
+          };
+        };
 
     #     workspaces = {
     #       "2" = {
