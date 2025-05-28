@@ -20,7 +20,9 @@ let
     };
     # Only apply the module's config if the feature is enabled
     configExtension = config: (lib.mkIf cfg.${name}.enable config);
-  }) (myLib.filesIn ./features);
+  }) 
+  # Find all modules (files) in the ./features directory
+  (myLib.filesIn ./features);
 
   # Collect all bundle modules from ./bundles
   # Each bundle is a group of features with its own enable switch
@@ -31,7 +33,9 @@ let
     };
     # Only apply the bundle's config if enabled
     configExtension = config: (lib.mkIf cfg.bundles.${name}.enable config);
-  }) (myLib.filesIn ./bundles);
+  }) 
+  # Find all modules (files) in the ./bundles directory
+  (myLib.filesIn ./bundles);
 
   # Collect all service modules from ./services
   # Each service can be toggled individually
@@ -42,7 +46,9 @@ let
     };
     # Only apply the service's config if enabled
     configExtension = config: (lib.mkIf cfg.services.${name}.enable config);
-  }) (myLib.filesIn ./services);
+  }) 
+  # Find all modules (files) in the ./services directory
+  (myLib.filesIn ./services);
 in
 {
   # Compose the imports list from home-manager, features, bundles, and services
