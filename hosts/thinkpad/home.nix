@@ -40,6 +40,7 @@
     kitty.enable = true;
     vscode.enable = true;
     rofi.enable = true;
+    htop.enable = true;
 
     firefox.enable = true;
 
