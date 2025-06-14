@@ -23,6 +23,14 @@
       # Make Home Manager use the stable Nixpkgs input for consistency
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
+
+    # Disko for declarative disk partitioning and formatting
+    disko = {
+      url = "github:nix-community/disko";
+      # Ensure that disko uses the same nixpkgs as the rest of the flake,
+      # which helps maintain consistency and avoids dependency issues.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # Define the outputs function, which receives all flake inputs as arguments
@@ -105,8 +113,7 @@
       # ----------- NixOS Configurations -----------
 
       # Generate nixosConfigurations for all hosts (both x86 and ARM)
-      nixosConfigurations =
-        (mkHostConfigs (readHosts "x86") false) // (mkHostConfigs (readHosts "arm") true);
+      nixosConfigurations = (mkHostConfigs (readHosts "x86") false); # // (mkHostConfigs (readHosts "arm") true);
 
       # ----------- Packages -----------
 
