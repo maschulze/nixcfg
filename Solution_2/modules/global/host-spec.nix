@@ -96,7 +96,7 @@
         pkgs.fish
         pkgs.bash
       ];
-      default = pkgs.fish;
+      default = pkgs.bash;
       description = "Default shell (pkgs.fish or pkgs.bash)";
     };
 

@@ -31,7 +31,7 @@ in
     hashedPassword = user.hashedPassword or hostSpec.hashedPassword;
     uid = 1000;
     # group = "ryot";
-    shell = hostSpec.shell or pkgs.fish;
+    shell = hostSpec.shell or pkgs.bash;
     extraGroups = lib.flatten [
       "wheel"
       (ifTheyExist [
@@ -45,7 +45,7 @@ in
         "video"
       ])
     ];
-    openssh.authorizedKeys.keys = user.ssh.publicKeys or [ ];
+    # openssh.authorizedKeys.keys = user.ssh.publicKeys or [ ];
   };
 
   # Special sudo config for user
@@ -66,7 +66,7 @@ in
   users.users.root = {
     shell = pkgs.bash;
     hashedPassword = lib.mkForce hostSpec.hashedPassword;
-    openssh.authorizedKeys.keys = user.ssh.publicKeys or [ ];
+    # openssh.authorizedKeys.keys = user.ssh.publicKeys or [ ];
   };
 }
 // lib.optionalAttrs (inputs ? "home-manager") {

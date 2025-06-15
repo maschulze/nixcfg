@@ -36,11 +36,11 @@ in
   ];
 
   # Enable print to PDF.
-  services.printing.enable = true;
+  # services.printing.enable = true;
   # Force home-manager to use global packages
   home-manager.useGlobalPkgs = true;
   # If there is a conflict file that is backed up, use this extension
-  home-manager.backupFileExtension = "homeManagerBackupFileExtension";
+  # home-manager.backupFileExtension = "homeManagerBackupFileExtension";
 
   ## Overlays ##
   nixpkgs = {
@@ -81,7 +81,7 @@ in
   #   };
 
   ## Primary shell enablement ##
-  programs.fish.enable = true;
+  # programs.bash.enable = true;
   environment.shells = with pkgs; [
     bash
     fish
