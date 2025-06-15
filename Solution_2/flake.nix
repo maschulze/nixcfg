@@ -19,7 +19,7 @@
 
     # Home Manager for managing user environments
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.05";
       # Make Home Manager use the stable Nixpkgs input for consistency
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
