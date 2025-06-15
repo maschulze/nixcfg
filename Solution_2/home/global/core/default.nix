@@ -14,6 +14,7 @@ in
   imports = lib.flatten [
     (map lib.custom.relativeToRoot [
       "modules/global"
+      "modules/nixos"
       "modules/home"
     ])
     (lib.custom.scanPaths ./.)
