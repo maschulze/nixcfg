@@ -17,6 +17,8 @@
     inputs.disko.nixosModules.default
   ];
 
+  networking.networkmanager.enable = true;
+
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ahci"

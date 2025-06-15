@@ -54,16 +54,16 @@ in
   # Core pkgs with no configs
   home.packages = builtins.attrValues {
     inherit (pkgs)
-      coreutils # basic gnu utils
-      direnv # environment per directory
-      dust # disk usage
-      eza # ls replacement
-      microsoft-edit
-      nmap # network scanner
-      trashy # trash cli
-      unrar # rar extraction
-      unzip # zip extraction
-      zip # zip compression
+      # coreutils # basic gnu utils
+      # direnv # environment per directory
+      # dust # disk usage
+      # eza # ls replacement
+      # microsoft-edit
+      # nmap # network scanner
+      # trashy # trash cli
+      # unrar # rar extraction
+      # unzip # zip extraction
+      # zip # zip compression
       ;
   };
 
