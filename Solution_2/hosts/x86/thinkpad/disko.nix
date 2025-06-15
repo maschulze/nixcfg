@@ -1,10 +1,9 @@
 {
-  inputs,
   ...
 }:
 {
   # Configure storage devices using disko
-  inputs.disko.devices = {
+  disko.devices = {
     disk = {
       nixos = {
         type = "disk"; # This defines a physical disk

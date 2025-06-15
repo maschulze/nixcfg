@@ -29,7 +29,7 @@
       url = "github:nix-community/disko";
       # Ensure that disko uses the same nixpkgs as the rest of the flake,
       # which helps maintain consistency and avoids dependency issues.
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
   };
 

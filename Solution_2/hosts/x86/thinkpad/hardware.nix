@@ -13,6 +13,8 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ./disko.nix
+
+    inputs.disko.nixosModules.default
   ];
 
   boot.initrd.availableKernelModules = [
