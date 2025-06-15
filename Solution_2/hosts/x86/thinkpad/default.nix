@@ -32,6 +32,7 @@ in
       #   "hosts/global/common/ddcutil.nix" # ddcutil for monitor controls
       #   "hosts/global/common/gaming.nix" # steam, gamescope, gamemode, and related hardware
       #   "hosts/global/common/gnome.nix"
+      "hosts/global/common/kde.nix"
       #   "hosts/global/common/libvirt.nix" # vm tools
       #   "hosts/global/common/nvtop.nix" # GPU monitor (not available in home-manager)
       #   "hosts/global/common/plymouth.nix" # fancy boot screen
