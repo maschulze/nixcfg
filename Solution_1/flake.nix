@@ -57,7 +57,7 @@
         # Define a NixOS configuration for the "thinkpad" host
         # mkSystem is a helper from ./myLib that sets up the system
         thinkpad = mkSystem ./hosts/thinkpad/configuration.nix;
-        
+
         # Define a NixOS configuration for the "virtualbox" host
         # mkSystem is a helper from ./myLib that sets up the system
         virtualbox = mkSystem ./hosts/virtualbox/configuration.nix;
@@ -68,7 +68,7 @@
         # Define a Home Manager configuration for user "worker" on "thinkpad"
         # mkHome is a helper from ./myLib for user-level setup
         "worker@thinkpad" = mkHome "x86_64-linux" ./hosts/thinkpad/home.nix;
-        
+
         # Define a Home Manager configuration for user "worker" on "virtualbox"
         # mkHome is a helper from ./myLib for user-level setup
         "worker@virtualbox" = mkHome "x86_64-linux" ./hosts/virtualbox/home.nix;

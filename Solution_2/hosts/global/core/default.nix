@@ -24,12 +24,15 @@ in
   # System-wide packages, root accessible
   environment.systemPackages = with pkgs; [
     # curl
+    fastfetch
     # git
     # git-crypt
     # gpg-tui
+    htop
     # micro
     # openssh
     # sshfs
+    vscode
     # wget
     # yay # my yay teehee
     # yazi
