@@ -25,6 +25,7 @@ in
   environment.systemPackages = with pkgs; [
     # curl
     fastfetch
+    firefox
     # git
     # git-crypt
     # gpg-tui
